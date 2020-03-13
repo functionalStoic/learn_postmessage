@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+      let childwin;
+      function openChild() {
+        childwin = window.open(
+          "Page2.html",
+          "popup",
+          "height=300px, width=500px, top=0, left=960"
+        );
+      }
+      openChild();
+      // function sendMessage() {
+      //   let msg = { pName: "Bob", pAge: "35" };
+      //   // In production, DO NOT use '*', use toe target domain
+      //   childwin.postMessage(msg, "*"); // childwin is the targetWindow
+      //   childwin.focus();
+      // }
+      function phoneNumberClicked(event) {
+        event.preventDefault();
+        if (!childwin.postMessage) {
+          openChild();
+        }
+
+        childwin.postMessage({ phoneNumber: event.srcElement.text }, "*"); // childwin is the targetWindow
+        // childwin.focus();
+      }
+    </script>
+  </head>
+
+  <body>
+    <form>
+      <fieldset>
+        <input
+          type="button"
+          id="btnopen"
+          value="Open child"
+          onclick="openChild();"
+        />
+        <a href="tel:+19187703878" onclick="phoneNumberClicked()"
+          >Call me at +1-918-770-3878</a
+        >
+        <div id="number1">Phone Number 1 9187703878</div>
+        <div id="number2">Phone Number 2 918-770-3878</div>
+        <div id="number3">Phone Number 3 1-918-770-3878</div>
+        <div id="number4">Phone Number 4 +19187703878</div>
+        <div id="number5">Phone Number 5 (918) 770-3878</div>
+        <div id="number6">Phone Number 6 918.770.3878</div>
+        <div id="number7">Phone Number 7 918 770 3878</div>
+      </fieldset>
+    </form>
+    <script src="./page1.js"></script>
+  </body>
+</html>
